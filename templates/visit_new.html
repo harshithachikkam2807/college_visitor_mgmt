@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <h2>New Visitor Check-in</h2>
+  <form method="post" class="form grid2">
+    <label>Visitor name
+      <input type="text" name="visitor_name" required>
+    </label>
+    <label>Phone
+      <input type="text" name="visitor_phone">
+    </label>
+    <label>ID Proof (no./type)
+      <input type="text" name="visitor_id">
+    </label>
+    <label>Vehicle No.
+      <input type="text" name="vehicle_no">
+    </label>
+    <label>Purpose of visit
+      <input type="text" name="purpose" required>
+    </label>
+    <label>Meeting Host
+      <select name="host_id" required>
+        <option value="">Select host</option>
+        {% for h in hosts %}
+          <option value="{{ h.id }}">{{ h.name }} — {{ h.department }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <div class="form-actions">
+      <button class="btn" type="submit">Check In</button>
+      <a class="btn secondary" href="{{ url_for('dashboard') }}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

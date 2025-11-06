@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <h2>Hosts</h2>
+  <form method="post" class="form inline">
+    <input type="text" name="name" placeholder="Host name" required>
+    <input type="text" name="department" placeholder="Department">
+    <button class="btn" type="submit">Add</button>
+  </form>
+
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>ID</th><th>Name</th><th>Department</th></tr></thead>
+      <tbody>
+        {% for h in hosts %}
+          <tr>
+            <td>{{ h.id }}</td>
+            <td>{{ h.name }}</td>
+            <td>{{ h.department or '' }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

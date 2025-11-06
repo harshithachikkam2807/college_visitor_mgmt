@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card narrow">
+  <h2>Sign in</h2>
+  <form method="post" class="form">
+    <label>Username
+      <input type="text" name="username" required>
+    </label>
+    <label>Password
+      <input type="password" name="password" required>
+    </label>
+    <button class="btn" type="submit">Login</button>
+    <p class="muted">Default credentials: <code>admin / admin123</code> (change via env: ADMIN_USER, ADMIN_PASS)</p>
+  </form>
+</section>
+{% endblock %}

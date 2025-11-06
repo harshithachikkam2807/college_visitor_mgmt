@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <h2>Visits</h2>
+  <form method="get" class="filters">
+    <label>Status
+      <select name="status" onchange="this.form.submit()">
+        <option value="all" {{ 'selected' if status=='all' else '' }}>All</option>
+        <option value="inside" {{ 'selected' if status=='inside' else '' }}>Inside</option>
+        <option value="checkedout" {{ 'selected' if status=='checkedout' else '' }}>Checked Out</option>
+      </select>
+    </label>
+    <label>From
+      <input type="date" name="from" value="{{ date_from }}">
+    </label>
+    <label>To
+      <input type="date" name="to" value="{{ date_to }}">
+    </label>
+    <button class="btn" type="submit">Filter</button>
+  </form>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Visitor</th>
+          <th>Phone</th>
+          <th>Host</th>
+          <th>Dept</th>
+          <th>Purpose</th>
+          <th>Vehicle</th>
+          <th>Check In</th>
+          <th>Check Out</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for v in visits %}
+        <tr>
+          <td>{{ v.id }}</td>
+          <td>{{ v.visitor.name }}</td>
+          <td>{{ v.visitor.phone or '' }}</td>
+          <td>{{ v.host.name }}</td>
+          <td>{{ v.host.department or '' }}</td>
+          <td>{{ v.purpose }}</td>
+          <td>{{ v.vehicle_no or '' }}</td>
+          <td>{{ v.check_in.strftime('%Y-%m-%d %H:%M') }}</td>
+          <td>{{ v.check_out.strftime('%Y-%m-%d %H:%M') if v.check_out else '' }}</td>
+          <td>
+            {% if not v.check_out %}
+            <form method="post" action="{{ url_for('visit_checkout', visit_id=v.id) }}">
+              <button class="btn small" type="submit">Check Out</button>
+            </form>
+            {% else %}
+            <span class="badge">Done</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
