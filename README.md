@@ -1,4 +1,4 @@
-# College Visitor Management System (Flask + SQLite)
+# College Visitor Management System 
 
 A clean, production-ready starter for managing visitor check-ins, check-outs, hosts, and daily stats.
 
